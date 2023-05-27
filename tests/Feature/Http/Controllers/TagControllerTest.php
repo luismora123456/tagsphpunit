@@ -23,4 +23,9 @@ class TagControllerTest extends TestCase
         $this->delete('tags/' . $tag->id)->assertRedirect('/');
         $this->assertDatabaseMissing('tags', ['name' => $tag->name]);
     }
+
+    public function testValidate()
+    {
+        $this->post('tags', ['name' => ''])->assertSessionHasErrors('name');
+    }
 }
